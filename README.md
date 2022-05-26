@@ -28,4 +28,4 @@ This code simulates a phenomenon called [Rayleigh-Bénard convection](https://ww
   - the vorticity is also moved by the velocity, it also diffuses and, crucially, we include a term which generates vorticity from differences in temperature
 - In order to solve these three equations we use:
   - The Jacobi method to solve for the stream function (this solves a matrix equation)
-  - Finite difference and Adams-Bashforth methods 
+  - Finite difference and Adams-Bashforth methods to evolve the vorticity and temperature equations in time. This is all more obvious from the code 
