@@ -29,3 +29,11 @@ This code simulates a phenomenon called [Rayleigh-Bénard convection](https://ww
 - In order to solve these three equations we use:
   - The Jacobi method to solve for the stream function (this solves a matrix equation)
   - Finite difference and Adams-Bashforth methods to evolve the vorticity and temperature equations in time. This is all more obvious from the code 
+
+### Getting set up
+
+Install the (minimal) dependencies:
+`pip install -r requirements.txt`
+
+Run the codes:
+`./nbody.py` or `./rayleigh_benard.py`
