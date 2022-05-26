@@ -100,8 +100,8 @@ def main():
 
     lx = 1.
     ly = 1.
-    Pr = 10 # CHANGEME to get different physics
-    Ra = 1e6 # CHANGEME to get different physics
+    Pr = 10 # CHANGEME to get different physics (Prandtl number)
+    Ra = 1e6 # CHANGEME to get different physics (Rayleigh number)
 
     dx = lx/nx
     dy = ly/ny
@@ -187,18 +187,19 @@ def main():
 
         # Calculate time derivatives
         dvortdt[1:-1,1:-1] = \
-                -(u[1:-1,1:-1] * ddx(vort, dx) + v[1:-1,1:-1] * ddy(vort, dy))\
-                - Ra*Pr*ddx(tmp, dx)\
-                + Pr*nabla2(vort, dx, dy)
+                -(u[1:-1,1:-1] * ddx(vort, dx) + v[1:-1,1:-1] * ddy(vort, dy))\ # Advect
+                + Pr*nabla2(vort, dx, dy)\ # Diffuse
+                - Ra*Pr*ddx(tmp, dx) # Generate vorticity from temperature differences
 
         dtmpdt[1:-1,1:-1] = \
-                -(u[1:-1,1:-1] * ddx(tmp, dx) + v[1:-1,1:-1] * ddy(tmp, dy))\
-                + nabla2(tmp, dx, dy)
+                -(u[1:-1,1:-1] * ddx(tmp, dx) + v[1:-1,1:-1] * ddy(tmp, dy))\ # Advect
+                + nabla2(tmp, dx, dy) # diffuse
 
         # Update variables
         vort[:] = update(vort, dvortdt, dvortdt_prev, dt)
         tmp[:] = update(tmp, dtmpdt, dtmpdt_prev, dt)
 
+        # Set boundary conditions
         set_vort_bcs(vort)
         set_tmp_bcs(tmp)
 
