@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -187,13 +189,13 @@ def main():
 
         # Calculate time derivatives
         dvortdt[1:-1,1:-1] = \
-                -(u[1:-1,1:-1] * ddx(vort, dx) + v[1:-1,1:-1] * ddy(vort, dy))\ # Advect
-                + Pr*nabla2(vort, dx, dy)\ # Diffuse
-                - Ra*Pr*ddx(tmp, dx) # Generate vorticity from temperature differences
+                -(u[1:-1,1:-1] * ddx(vort, dx) + v[1:-1,1:-1] * ddy(vort, dy))\
+                + Pr*nabla2(vort, dx, dy)\
+                - Ra*Pr*ddx(tmp, dx)
 
         dtmpdt[1:-1,1:-1] = \
-                -(u[1:-1,1:-1] * ddx(tmp, dx) + v[1:-1,1:-1] * ddy(tmp, dy))\ # Advect
-                + nabla2(tmp, dx, dy) # diffuse
+                -(u[1:-1,1:-1] * ddx(tmp, dx) + v[1:-1,1:-1] * ddy(tmp, dy))\
+                + nabla2(tmp, dx, dy)
 
         # Update variables
         vort[:] = update(vort, dvortdt, dvortdt_prev, dt)
