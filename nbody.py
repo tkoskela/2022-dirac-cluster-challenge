@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 from numpy.random import default_rng
 from scipy.constants import gravitational_constant as G
